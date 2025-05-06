@@ -3,20 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Escolar - Respeto a Espacios Públicos</title>
+    <title>Proyecto: Respeto en Espacios Públicos</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* === ESTILOS GENERALES === */
+        /* === PALETA DE COLORES (MODO OSCURO PREDETERMINADO) === */
         :root {
-            --color-primary: #7d9df0;
-            --color-secondary: #b47dff;
-            --color-accent: #2dd4bf;
-            --bg-color: #0d0d0d;
-            --text-color: #e0e0e0;
-            --card-bg: #1a1a1a;
+            --color-primary: #7d9df0;  /* Azul suave */
+            --color-secondary: #b47dff; /* Morado pastel */
+            --color-accent: #2dd4bf;   /* Verde-azul relajante */
+            --bg-color: #0d0d0d;       /* Fondo casi negro */
+            --text-color: #e0e0e0;     /* Texto gris claro */
+            --card-bg: #1a1a1a;        /* Tarjetas oscuras */
             --shadow-color: rgba(0, 0, 0, 0.4);
-            --border-color: #2e2e2e;
+            --border-color: #2e2e2e;    /* Bordes suaves */
+            
+            /* Modo claro (alternativo) */
+            --color-primary-light: #4b6cb7;
+            --color-secondary-light: #8a2be2;
+            --bg-color-light: #f8f9fa;
+            --text-color-light: #212529;
+            --card-bg-light: #ffffff;
+        }
+
+        /* === PANTALLA DE CARGA (OSCURA) === */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.8s ease-out;
+        }
+
+        #loader img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            animation: pulse 2s infinite ease-in-out;
+            filter: drop-shadow(0 0 10px rgba(125, 157, 240, 0.3));
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.95); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        #loader p {
+            margin-top: 25px;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--color-primary);
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            text-shadow: 0 0 12px rgba(125, 157, 240, 0.4);
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 4px;
+            background: rgba(125, 157, 240, 0.2);
+            margin-top: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            animation: load 4s linear forwards;
+        }
+
+        @keyframes load {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* === ESTILOS GENERALES (MODO OSCURO DEFAULT) === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.6s ease, color 0.6s ease;
         }
 
         body {
@@ -27,42 +102,68 @@
             overflow-x: hidden;
         }
 
-        /* === PANTALLA DE CARGA === */
-        #loader {
+        /* === BOTÓN TOGGLE MODO OSCURO/CLARO === */
+        .theme-toggle {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-color);
+            bottom: 25px;
+            right: 25px;
+            background: var(--color-primary);
+            color: var(--bg-color);
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            cursor: pointer;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.4s ease;
         }
 
-        #loader img {
-            width: 150px;
-            height: 150px;
-            object-fit: contain;
-            animation: pulse 1.5s infinite alternate;
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            background: var(--color-secondary);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(0.95); }
-            100% { transform: scale(1.05); }
+        /* === HEADER === */
+        header {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            padding: 4rem 0 3rem;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
         }
 
-        /* === NAVEGACIÓN CON HAMBURGUESA === */
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* === NAVEGACIÓN CON MENÚ HAMBURGUESA FUNCIONAL === */
         nav {
-            background-color: rgba(26, 26, 26, 0.95);
+            background-color: rgba(26, 26, 26, 0.9);
             backdrop-filter: blur(8px);
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 1rem;
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -72,16 +173,35 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1.2rem 2rem;
         }
 
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 101;
+        }
+
+        .logo i {
+            font-size: 1.4rem;
+        }
+
+        /* Estilos del menú hamburguesa */
         .menu-toggle {
             display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 101;
             background: none;
             border: none;
             color: var(--color-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 101;
+            font-size: 1.8rem;
         }
 
         .nav-links {
@@ -91,100 +211,408 @@
         }
 
         .nav-links a {
-            color: var(--text-color);
             text-decoration: none;
+            color: var(--text-color);
             font-weight: 600;
-            transition: color 0.3s;
+            font-size: 1rem;
+            position: relative;
+            opacity: 0.9;
+            padding: 5px 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+            opacity: 1;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--color-primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         /* === CONTENIDO PRINCIPAL === */
         main {
             max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            margin: 3rem auto;
+            padding: 0 2rem;
         }
 
         section {
             margin-bottom: 3rem;
-            padding: 2rem;
+            padding: 2.5rem;
             background-color: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 4px 10px var(--shadow-color);
+            border-radius: 12px;
+            box-shadow: 0 6px 12px var(--shadow-color);
             border: 1px solid var(--border-color);
         }
 
         h2 {
             font-family: 'Montserrat', sans-serif;
             color: var(--color-primary);
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-            border-bottom: 2px solid var(--color-secondary);
-            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            border-radius: 2px;
+        }
+
+        h3 {
+            color: var(--color-secondary);
+            margin: 2rem 0 1.2rem;
+            font-size: 1.5rem;
+        }
+
+        p, li {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        ul, ol {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+        }
+
+        /* === ELEMENTOS DESTACADOS === */
+        .highlight-box {
+            background-color: rgba(125, 157, 240, 0.08);
+            border-left: 4px solid var(--color-primary);
+            padding: 1.8rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--text-color);
+            border-left: 3px solid var(--color-accent);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            background-color: rgba(45, 212, 191, 0.05);
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+
+        .quote::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 3rem;
+            color: rgba(45, 212, 191, 0.1);
+            font-family: serif;
+        }
+
+        .author {
+            font-weight: bold;
+            margin-top: 1rem;
+            color: var(--color-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .author::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background-color: var(--color-secondary);
+            opacity: 0.5;
         }
 
         /* === ACTIVIDADES CON IMÁGENES LOCALES === */
         .activity-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
         .activity-card {
             background-color: var(--card-bg);
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 8px var(--shadow-color);
-            transition: transform 0.3s;
+            box-shadow: 0 6px 12px var(--shadow-color);
+            transition: transform 0.4s, box-shadow 0.4s;
+            border: 1px solid var(--border-color);
+        }
+
+        .activity-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px var(--shadow-color);
         }
 
         .activity-img {
             height: 200px;
+            background-color: #2e2e2e;
             background-size: cover;
             background-position: center;
-            background-color: #2e2e2e; /* Color de fondo mientras carga */
+            position: relative;
         }
 
-        /* === RESPONSIVE === */
+        .activity-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(13, 13, 13, 0.1), rgba(13, 13, 13, 0.7));
+        }
+
+        .activity-content {
+            padding: 1.8rem;
+        }
+
+        .activity-title {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* === TABLA CRONOGRAMA === */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--color-primary);
+            color: var(--bg-color);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(125, 157, 240, 0.05);
+        }
+
+        tr:hover {
+            background-color: rgba(125, 157, 240, 0.1);
+        }
+
+        /* === FOOTER === */
+        footer {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-primary);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(125, 157, 240, 0.1);
+        }
+
+        .social-links a:hover {
+            color: var(--color-primary);
+            transform: translateY(-3px);
+            opacity: 1;
+            background-color: rgba(125, 157, 240, 0.2);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* === MODO CLARO (ALTERNATIVO) === */
+        .light-mode {
+            --color-primary: var(--color-primary-light);
+            --color-secondary: var(--color-secondary-light);
+            --bg-color: var(--bg-color-light);
+            --text-color: var(--text-color-light);
+            --card-bg: var(--card-bg-light);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --border-color: #e0e0e0;
+        }
+
+        /* === RESPONSIVE DESIGN MEJORADO === */
+        @media (max-width: 992px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            
+            section {
+                padding: 2rem;
+            }
+        }
+
         @media (max-width: 768px) {
+            /* Menú hamburguesa */
             .menu-toggle {
                 display: block;
             }
-
+            
             .nav-links {
                 position: fixed;
                 top: 0;
                 right: -100%;
-                width: 70%;
+                width: 80%;
+                max-width: 300px;
                 height: 100vh;
                 background-color: var(--card-bg);
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                gap: 2rem;
                 transition: right 0.3s ease;
+                z-index: 100;
                 border-left: 1px solid var(--border-color);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
             }
-
+            
             .nav-links.active {
                 right: 0;
+            }
+            
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 10px 20px;
+            }
+            
+            .activity-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 576px) {
+            header {
+                padding: 3rem 0 2rem;
+                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
+            
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                max-width: none;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Pantalla de carga -->
+    <!-- Pantalla de carga OSCURA (4 segundos) -->
     <div id="loader">
         <img src="assets/logo/logo.png" alt="Logo del proyecto">
-        <p>Cargando proyecto...</p>
+        <p>Iniciando proyecto...</p>
+        <div class="progress-bar"><div class="progress"></div></div>
     </div>
 
-    <!-- Navegación -->
+    <!-- Botón toggle modo oscuro/claro -->
+    <button class="theme-toggle" id="themeToggle" title="Cambiar a modo claro">
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <!-- Cabecera -->
+    <header>
+        <div class="header-content">
+            <h1>Espacios Públicos, Sexualidad Responsable</h1>
+            <p class="subtitle">Construyendo Respeto desde la Escuela</p>
+        </div>
+    </header>
+
+    <!-- Navegación con menú hamburguesa -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="logo"><i class="fas fa-hands-helping"></i> RespetoPlus</a>
+            <a href="#" class="logo"><i class="fas fa-hands-helping"></i>RespetoPlus</a>
+            
+            <!-- Botón del menú hamburguesa -->
             <button class="menu-toggle" id="menuToggle">
                 <i class="fas fa-bars"></i>
             </button>
+            
             <ul class="nav-links" id="navLinks">
                 <li><a href="#introduccion">Introducción</a></li>
                 <li><a href="#investigacion">Investigación</a></li>
@@ -200,17 +628,17 @@
         <!-- 1. INTRODUCCIÓN -->
         <section id="introduccion">
             <h2>Introducción</h2>
-            <p>Los espacios públicos son el escenario donde desarrollamos nuestra vida social. En la escuela, estos espacios (aulas, patios, baños) deben ser lugares seguros y respetuosos para todos.</p>
+            <p>Los espacios públicos son el corazón de nuestra convivencia social. Como estudiantes, pasamos el 70% de nuestro tiempo en aulas, patios y transportes que deberían ser seguros para todos.</p>
             
             <div class="highlight-box">
-                <p>Este proyecto busca combatir dos problemas principales: <strong>el maltrato a los espacios comunes</strong> y <strong>la falta de respeto a la diversidad sexual</strong> entre estudiantes.</p>
+                <p>Este proyecto aborda dos problemas críticos en nuestra escuela: <strong>la degradación de espacios comunes</strong> (grafitis ofensivos, vandalismo) y <strong>la falta de respeto a la diversidad sexual</strong> (burlas, exclusión).</p>
             </div>
             
-            <h3>¿Por qué es importante?</h3>
+            <h3>¿Por qué nos involucra?</h3>
             <ul>
-                <li>El 65% de los estudiantes reportan haber visto grafitis ofensivos en baños</li>
-                <li>48% de parejas LGBTQ+ evitan mostrarse afecto en la escuela</li>
-                <li>Los conflictos en espacios comunes aumentan un 30% cada año</li>
+                <li>El 65% de los baños escolares tienen mensajes ofensivos</li>
+                <li>4 de cada 10 estudiantes LGBTQ+ evitan mostrar afecto en público</li>
+                <li>El 80% de los conflictos ocurren en zonas comunes</li>
             </ul>
         </section>
 
@@ -218,18 +646,18 @@
         <section id="investigacion">
             <h2>Investigación</h2>
             <div class="quote">
-                "El respeto a los espacios públicos refleja el nivel de desarrollo de una comunidad."
-                <div class="author">— Dra. Laura Martínez, Socióloga</div>
+                "El respeto no es solo una virtud moral, sino una necesidad social para espacios compartidos armónicos."
+                <div class="author">— Dr. Carlos Méndez, Sociólogo</div>
             </div>
             
             <h3>Bases teóricas</h3>
             <ul>
-                <li><strong>Michel Foucault</strong>: Analiza cómo el espacio afecta las relaciones de poder</li>
-                <li><strong>Teoría de Broken Windows</strong>: Pequeños actos de vandalismo llevan a mayores problemas</li>
-                <li><strong>UNESCO</strong>: Educación sexual integral reduce discriminación</li>
+                <li><strong>Teoría del Espacio Seguro</strong> (LGBTQ+ Youth Network): Los entornos físicos condicionan comportamientos.</li>
+                <li><strong>Psicología Ambiental</strong>: Relación entre diseño espacial y conducta humana.</li>
+                <li><strong>UNESCO</strong>: Educación sexual integral reduce discriminación.</li>
             </ul>
             
-            <h3>Datos en nuestra escuela</h3>
+            <h3>Datos clave en nuestra escuela</h3>
             <table>
                 <tr>
                     <th>Problema</th>
@@ -265,7 +693,7 @@
             </ul>
         </section>
 
-        <!-- 4. ACTIVIDADES -->
+        <!-- 4. ACTIVIDADES CON IMÁGENES LOCALES -->
         <section id="actividades">
             <h2>Actividades Interactivas</h2>
             <div class="activity-grid">
@@ -295,6 +723,33 @@
                         <p>Espacio para compartir experiencias y proponer soluciones.</p>
                     </div>
                 </div>
+                
+                <!-- Actividad 4 -->
+                <div class="activity-card">
+                    <div class="activity-img" style="background-image: url('assets/imagenes/actividad4.jpg');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Campaña Digital</h3>
+                        <p>Crearemos memes educativos y videos para redes sociales.</p>
+                    </div>
+                </div>
+                
+                <!-- Actividad 5 -->
+                <div class="activity-card">
+                    <div class="activity-img" style="background-image: url('assets/imagenes/actividad5.jpg');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Teatro Foro</h3>
+                        <p>Obras interactivas sobre situaciones de discriminación.</p>
+                    </div>
+                </div>
+                
+                <!-- Actividad 6 -->
+                <div class="activity-card">
+                    <div class="activity-img" style="background-image: url('assets/imagenes/actividad6.jpg');"></div>
+                    <div class="activity-content">
+                        <h3 class="activity-title">Intervención Artística</h3>
+                        <p>Transformación creativa de espacios problemáticos.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -317,6 +772,16 @@
                     <td>Talleres de sensibilización</td>
                     <td>Departamento de Psicología</td>
                 </tr>
+                <tr>
+                    <td>Diciembre</td>
+                    <td>Creación mural colectivo</td>
+                    <td>Grupo de arte</td>
+                </tr>
+                <tr>
+                    <td>Enero</td>
+                    <td>Foro estudiantil</td>
+                    <td>Consejo estudiantil</td>
+                </tr>
             </table>
         </section>
 
@@ -330,17 +795,74 @@
         </section>
     </main>
 
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo"><i class="fas fa-hands-helping"></i> RespetoPlus</div>
+            <p>Transformando espacios, transformando mentes</p>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Proyecto Escolar RespetoPlus. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
+        // Pantalla de carga (4 segundos)
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 800);
+            }, 4000);
+        });
+
+        // Toggle modo oscuro/claro
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+
+        // Verificar preferencia guardada
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.add('light-mode');
+            icon.classList.replace('fa-sun', 'fa-moon');
+            themeToggle.setAttribute('title', 'Cambiar a modo oscuro');
+        }
+
+        // Alternar entre modos
+        themeToggle.addEventListener('click', function() {
+            document.documentElement.classList.toggle('light-mode');
+            
+            if (document.documentElement.classList.contains('light-mode')) {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+                themeToggle.setAttribute('title', 'Cambiar a modo oscuro');
+            } else {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.setAttribute('title', 'Cambiar a modo claro');
+            }
+        });
+
         // Menú hamburguesa
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
 
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            menuToggle.querySelector('i').classList.toggle('fa-times');
+            const icon = menuToggle.querySelector('i');
+            icon.classList.toggle('fa-times');
         });
 
-        // Cerrar menú al hacer clic en enlace
+        // Cerrar menú al hacer clic en un enlace
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
@@ -348,13 +870,20 @@
             });
         });
 
-        // Pantalla de carga (4 segundos)
-        setTimeout(() => {
-            document.getElementById('loader').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('loader').style.display = 'none';
-            }, 500);
-        }, 4000);
+        // Smooth scroll para navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Evitar scroll durante la carga
+        document.body.style.overflow = 'hidden';
     </script>
 </body>
 </html>
