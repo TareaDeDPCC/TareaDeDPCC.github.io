@@ -192,28 +192,22 @@
             font-size: 1.4rem;
         }
 
-        /* === MENÚ HAMBURGUESA MEJORADO === */
+        /* Estilos del menú hamburguesa */
         .menu-toggle {
             display: none;
             cursor: pointer;
+            padding: 10px;
+            z-index: 101;
             background: none;
             border: none;
-            padding: 10px;
-            z-index: 1001;
             color: var(--color-primary);
-        }
-
-        .menu-toggle i {
             font-size: 1.8rem;
-            transition: transform 0.3s ease;
         }
 
         .nav-links {
             display: flex;
-            gap: 1.5rem;
             list-style: none;
-            margin: 0;
-            padding: 0;
+            gap: 1.5rem;
         }
 
         .nav-links a {
@@ -222,12 +216,13 @@
             font-weight: 600;
             font-size: 1rem;
             position: relative;
+            opacity: 0.9;
             padding: 5px 0;
-            transition: color 0.3s ease;
         }
 
         .nav-links a:hover {
             color: var(--color-primary);
+            opacity: 1;
         }
 
         .nav-links a::after {
@@ -238,69 +233,11 @@
             bottom: 0;
             left: 0;
             background-color: var(--color-primary);
-            transition: width 0.3s ease;
+            transition: width 0.3s;
         }
 
         .nav-links a:hover::after {
             width: 100%;
-        }
-
-        /* Estilos para móvil */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-            
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                max-width: 300px;
-                height: 100vh;
-                background-color: var(--card-bg);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 2rem;
-                transition: right 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-                z-index: 1000;
-                border-left: 1px solid var(--border-color);
-                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
-                padding: 20% 0;
-            }
-            
-            .nav-links.active {
-                right: 0;
-            }
-            
-            .nav-links a {
-                font-size: 1.2rem;
-                padding: 10px 20px;
-                opacity: 0;
-                transform: translateX(20px);
-                transition: all 0.4s ease;
-            }
-            
-            .nav-links.active a {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            
-            /* Animación escalonada para los enlaces */
-            .nav-links.active a:nth-child(1) { transition-delay: 0.1s; }
-            .nav-links.active a:nth-child(2) { transition-delay: 0.2s; }
-            .nav-links.active a:nth-child(3) { transition-delay: 0.3s; }
-            .nav-links.active a:nth-child(4) { transition-delay: 0.4s; }
-            
-            /* Efecto "X" cuando está activo */
-            .menu-toggle.active i.fa-bars {
-                transform: rotate(180deg);
-            }
-            
-            .menu-toggle.active i.fa-bars::before {
-                content: "\f00d"; /* Icono de cerrar (X) */
-            }
         }
 
         /* === CONTENIDO PRINCIPAL === */
@@ -570,6 +507,49 @@
             }
         }
 
+        @media (max-width: 768px) {
+            /* Menú hamburguesa */
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: var(--card-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: right 0.3s ease;
+                z-index: 100;
+                border-left: 1px solid var(--border-color);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 10px 20px;
+            }
+            
+            .activity-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
         @media (max-width: 576px) {
             header {
                 padding: 3rem 0 2rem;
@@ -593,6 +573,11 @@
                 height: 45px;
                 bottom: 15px;
                 right: 15px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                max-width: none;
             }
         }
     </style>
@@ -618,12 +603,25 @@
         </div>
     </header>
 
-    <!-- Navegación con menú hamburguesa MEJORADO -->
+    <!-- Navegación con menú hamburguesa -->
     <nav>
         <div class="nav-container">
             <a href="#" class="logo"><i class="fas fa-hands-helping"></i>RespetoPlus</a>
             
-
+            <!-- Botón del menú hamburguesa -->
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#introduccion">Introducción</a></li>
+                <li><a href="#investigacion">Investigación</a></li>
+                <li><a href="#proyecto">Proyecto</a></li>
+                <li><a href="#actividades">Actividades</a></li>
+                <li><a href="#cronograma">Cronograma</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <!-- Contenido principal -->
     <main>
@@ -854,41 +852,22 @@
             }
         });
 
-        // =============================================
-        // MENÚ HAMBURGUESA MEJORADO (FUNCIONAL Y BONITO)
-        // =============================================
+        // Menú hamburguesa
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
 
         menuToggle.addEventListener('click', () => {
-            // Alternar clases activas
             navLinks.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-            
-            // Bloquear scroll cuando el menú está abierto
-            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+            const icon = menuToggle.querySelector('i');
+            icon.classList.toggle('fa-times');
         });
 
-        // Cerrar menú al hacer clic en un enlace (para móviles)
+        // Cerrar menú al hacer clic en un enlace
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) { // Solo en móvil
-                    navLinks.classList.remove('active');
-                    menuToggle.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        });
-
-        // Cerrar menú al hacer clic fuera (opcional)
-        document.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768 && 
-                !e.target.closest('.nav-container') && 
-                navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
-                menuToggle.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
+                menuToggle.querySelector('i').classList.remove('fa-times');
+            });
         });
 
         // Smooth scroll para navegación
