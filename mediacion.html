@@ -172,23 +172,24 @@
             display: inline-block;
         }
 
-        /* === NAVEGACIÓN SIMPLIFICADA === */
+        /* === NAVEGACIÓN MEJORADA CON MENÚ HAMBURGUESA === */
         nav {
-            background-color: rgba(26, 26, 26, 0.9);
-            backdrop-filter: blur(8px);
             position: sticky;
             top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(8px);
             z-index: 100;
-            border-bottom: 1px solid var(--border-color);
             padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 0 2rem;
         }
 
@@ -205,6 +206,111 @@
 
         .logo i {
             font-size: 1.4rem;
+        }
+
+        /* Estilos del menú hamburguesa */
+        .menu-toggle {
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: none; /* Oculto por defecto en desktop */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 101;
+            padding: 0;
+        }
+
+        .menu-line {
+            width: 25px;
+            height: 2px;
+            background: var(--color-primary);
+            margin: 4px 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active .menu-line:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .menu-toggle.active .menu-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active .menu-line:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        /* Estilos para móvil */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(26, 26, 26, 0.98);
+                backdrop-filter: blur(15px);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: right 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+                z-index: 99;
+                padding: 2rem;
+                border-left: 1px solid rgba(74, 137, 220, 0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 0.5rem 1rem;
+            }
         }
 
         /* === CONTENIDO PRINCIPAL === */
@@ -530,10 +636,23 @@
         </div>
     </header>
 
-    <!-- Navegación simplificada -->
+    <!-- Navegación con menú hamburguesa -->
     <nav>
         <div class="nav-container">
             <a href="#" class="logo"><i class="fas fa-handshake"></i>Mediación Escolar</a>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="#conceptos">Conceptos</a>
+                <a href="#proceso">Proceso</a>
+                <a href="#reflexion">Reflexión</a>
+                <a href="#">Contacto</a>
+            </div>
         </div>
     </nav>
 
@@ -761,6 +880,33 @@
                 localStorage.setItem('theme', 'dark');
                 themeToggle.setAttribute('title', 'Cambiar a modo claro');
             }
+        });
+
+        // Menú hamburguesa
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            
+            // Bloquear scroll cuando el menú está abierto
+            if (navLinks.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Cerrar menú al hacer clic en un enlace (en móviles)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
         });
 
         // Evitar scroll durante la carga
