@@ -1,114 +1,82 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido | Proyecto Harmony</title>
+    <title>Concientización sobre Sexualidad y Respeto</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* === PALETA DE COLORES UNIFICADA (MORADOS) === */
+        :root {
+            --color-primary: #6a0dad;       /* Morado oscuro principal */
+            --color-secondary: #9c27b0;     /* Morado intermedio */
+            --color-accent: #b47dff;        /* Morado claro/acento */
+            --color-dark: #121212;          /* Fondo oscuro */
+            --color-light: #e0e0e0;         /* Texto claro */
+            --color-card: #1a1a1a;          /* Fondo de tarjetas */
+            --color-border: #2e2e2e;        /* Bordes */
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            
+            /* Modo claro */
+            --color-primary-light: #7b1fa2;
+            --color-secondary-light: #ab47bc;
+            --color-dark-light: #f5f5f5;
+            --color-light-light: #333333;
+            --color-card-light: #ffffff;
+        }
+
         /* === RESET Y ESTILOS BASE === */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color 0.6s ease, color 0.6s ease;
         }
 
         body {
             font-family: 'Open Sans', sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #4a148c 100%);
-            color: #fff;
-            min-height: 100vh;
+            line-height: 1.7;
+            color: var(--color-light);
+            background-color: var(--color-dark);
             overflow-x: hidden;
         }
 
-        /* === PANTALLA DE CARGA === */
-        #loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #1a1a1a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 9999;
-            transition: opacity 0.8s ease;
-        }
-
-        #loader img {
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(0.95); opacity: 0.9; }
-            50% { transform: scale(1.05); opacity: 1; }
-        }
-
-        #loader p {
-            margin-top: 15px;
-            font-family: 'Montserrat', sans-serif;
-            color: #b47dff;
-        }
-
-        .progress-bar {
-            width: 200px;
-            height: 4px;
-            background: rgba(180, 125, 255, 0.2);
-            margin-top: 15px;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .progress {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #8a2be2, #b47dff);
-            animation: load 3s linear forwards;
-        }
-
-        @keyframes load {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        /* === MENÚ HAMBURGUESA MEJORADO === */
+        /* === MENÚ HAMBURGUESA === */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(26, 26, 26, 0.8);
+            background: rgba(26, 26, 26, 0.95);
             backdrop-filter: blur(10px);
             z-index: 100;
-            padding: 1rem;
-            border-bottom: 1px solid rgba(180, 125, 255, 0.2);
-        }
-
-        .nav-container {
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
+            border-bottom: 1px solid rgba(180, 125, 255, 0.2);
         }
 
-        .logo {
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
             font-family: 'Montserrat', sans-serif;
-            color: #b47dff;
             font-size: 1.5rem;
-            text-decoration: none;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .menu-toggle {
             background: none;
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -119,23 +87,27 @@
         }
 
         .menu-line {
-            width: 25px;
-            height: 2px;
-            background: #b47dff;
-            margin: 4px 0;
-            transition: all 0.3s ease;
+            width: 30px;
+            height: 3px;
+            background: var(--color-accent);
+            margin: 5px 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            border-radius: 3px;
         }
 
         .menu-toggle.active .menu-line:nth-child(1) {
-            transform: translateY(6px) rotate(45deg);
+            transform: translateY(8px) rotate(45deg);
+            background: var(--color-primary);
         }
 
         .menu-toggle.active .menu-line:nth-child(2) {
             opacity: 0;
+            transform: translateX(-20px);
         }
 
         .menu-toggle.active .menu-line:nth-child(3) {
-            transform: translateY(-6px) rotate(-45deg);
+            transform: translateY(-8px) rotate(-45deg);
+            background: var(--color-primary);
         }
 
         .nav-links {
@@ -144,14 +116,14 @@
             right: -100%;
             width: 300px;
             height: 100vh;
-            background: rgba(26, 26, 26, 0.95);
+            background: rgba(26, 26, 26, 0.98);
             backdrop-filter: blur(15px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 2rem;
-            transition: right 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transition: right 0.5s ease-in-out;
             z-index: 99;
             padding: 2rem;
             border-left: 1px solid rgba(180, 125, 255, 0.1);
@@ -162,7 +134,7 @@
         }
 
         .nav-links a {
-            color: #fff;
+            color: var(--color-light);
             text-decoration: none;
             font-size: 1.3rem;
             font-family: 'Montserrat', sans-serif;
@@ -171,282 +143,585 @@
             transition: all 0.3s ease;
         }
 
-        .nav-links a::before {
+        .nav-links a::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
             height: 2px;
-            background: #b47dff;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
             transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: #b47dff;
+            color: var(--color-accent);
         }
 
-        .nav-links a:hover::before {
-            width: 100%;
+        .nav-links a:hover::after {
+            width: 80%;
         }
 
         .menu-gif {
-            width: 200px;
-            margin-top: 3rem;
+            width: 180px;
+            height: auto;
+            max-width: 100%;
             border-radius: 10px;
             opacity: 0.9;
             transition: transform 0.3s ease;
+            margin-top: 2rem;
+            border: 2px solid rgba(180, 125, 255, 0.3);
         }
 
         .menu-gif:hover {
             transform: scale(1.05);
             opacity: 1;
+            border-color: var(--color-accent);
         }
 
-        /* === HEADER BIENVENIDA === */
+        /* === HEADER === */
         header {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            padding: 6rem 0 4rem;
             text-align: center;
-            padding: 8rem 2rem 4rem;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            margin-top: 60px;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
         h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, #fff, #b47dff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* === 6 CUADRADOS INTERACTIVOS === */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        .grid-item {
-            aspect-ratio: 1/1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Colores alternados */
-        .grid-item:nth-child(1), 
-        .grid-item:nth-child(3),
-        .grid-item:nth-child(5) {
-            background-color: #6A0DAD; /* Morado oscuro */
-        }
-
-        .grid-item:nth-child(2), 
-        .grid-item:nth-child(4),
-        .grid-item:nth-child(6) {
-            background-color: #000000; /* Negro */
-        }
-
-        .grid-item h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
-            text-align: center;
-            z-index: 2;
-            color: white;
-            padding: 1rem;
-        }
-
-        .grid-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        /* === REFLEXIÓN FINAL === */
-        .reflexion {
+            font-size: clamp(1rem, 3vw, 1.3rem);
             max-width: 800px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-            text-align: center;
+            margin: 0 auto;
+            opacity: 0.9;
         }
 
-        .reflexion h2 {
+        /* === CONTENIDO PRINCIPAL === */
+        main {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding: 2.5rem;
+            background-color: var(--color-card);
+            border-radius: 12px;
+            box-shadow: 0 6px 12px var(--shadow-color);
+            border: 1px solid var(--color-border);
+        }
+
+        h2 {
             font-family: 'Montserrat', sans-serif;
+            color: var(--color-accent);
+            margin-bottom: 2rem;
             font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: #b47dff;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            border-radius: 2px;
+        }
+
+        h3 {
+            color: var(--color-secondary);
+            margin: 2rem 0 1.2rem;
+            font-size: 1.5rem;
+        }
+
+        p, li {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        ul, ol {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+        }
+
+        /* === ELEMENTOS DESTACADOS === */
+        .highlight-box {
+            background-color: rgba(106, 13, 173, 0.08);
+            border-left: 4px solid var(--color-primary);
+            padding: 1.8rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
         }
 
         .quote {
             font-style: italic;
-            font-size: 1.2rem;
+            color: var(--color-light);
+            border-left: 3px solid var(--color-accent);
+            padding: 1.5rem;
             margin: 2rem 0;
-            color: #fff;
+            background-color: rgba(180, 125, 255, 0.05);
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+
+        .quote::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 3rem;
+            color: rgba(180, 125, 255, 0.1);
+            font-family: serif;
+        }
+
+        .author {
+            font-weight: bold;
+            margin-top: 1rem;
+            color: var(--color-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* === TARJETAS DE INFORMACIÓN === */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            background-color: var(--color-card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px var(--shadow-color);
+            transition: transform 0.4s, box-shadow 0.4s;
+            border: 1px solid var(--color-border);
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px var(--shadow-color);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            padding: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
         }
 
         /* === FOOTER === */
         footer {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 3rem 0;
+            background-color: var(--color-card);
+            color: var(--color-light);
             text-align: center;
-            margin-top: 3rem;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
         .footer-logo {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: #b47dff;
+            margin-bottom: 1.5rem;
+            color: var(--color-accent);
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin: 1.5rem 0;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 1.5rem;
         }
 
         .social-links a {
-            color: #fff;
+            color: var(--color-light);
             font-size: 1.5rem;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(180, 125, 255, 0.1);
         }
 
         .social-links a:hover {
-            color: #b47dff;
+            color: var(--color-accent);
             transform: translateY(-3px);
+            opacity: 1;
+            background-color: rgba(180, 125, 255, 0.2);
         }
 
         .copyright {
+            margin-top: 2rem;
             font-size: 0.9rem;
             opacity: 0.7;
         }
 
-        /* === RESPONSIVE === */
+        /* === RESPONSIVE DESIGN === */
         @media (max-width: 768px) {
-            .grid-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
             header {
-                padding: 6rem 1rem 3rem;
+                padding: 5rem 0 3rem;
+                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+            }
+            
+            .nav-links {
+                width: 100%;
             }
         }
 
         @media (max-width: 480px) {
-            .grid-container {
-                grid-template-columns: 1fr;
+            .logo-text {
+                font-size: 1.2rem;
             }
-
-            .nav-links {
-                width: 100%;
+            
+            nav {
+                padding: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Pantalla de carga -->
-    <div id="loader">
-        <img src="https://cdn-icons-png.flaticon.com/512/477/477103.png" alt="Cargando">
-        <p>Cargando experiencia...</p>
-        <div class="progress-bar"><div class="progress"></div></div>
-    </div>
-
-    <!-- Menú hamburguesa mejorado -->
+    <!-- Navegación -->
     <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">Harmony</a>
-            <button class="menu-toggle" id="menuToggle">
-                <span class="menu-line"></span>
-                <span class="menu-line"></span>
-                <span class="menu-line"></span>
-            </button>
-            <div class="nav-links" id="navLinks">
-                <a href="#">Inicio</a>
-                <a href="#">Proyectos</a>
-                <a href="#">Servicios</a>
-                <a href="#">Contacto</a>
-                <!-- Tu GIF animado -->
-                <img src="assets/gif/gif.gif" alt="Animación" class="menu-gif">
-            </div>
+        <div class="logo-container">
+            <div class="logo-text">Sexualidad Responsable</div>
+        </div>
+        
+        <button class="menu-toggle" id="menuToggle">
+            <span class="menu-line"></span>
+            <span class="menu-line"></span>
+            <span class="menu-line"></span>
+        </button>
+        
+        <div class="nav-links" id="navLinks">
+            <a href="#problema">Problema</a>
+            <a href="#investigacion">Investigación</a>
+            <a href="#soluciones">Soluciones</a>
+            <img src="assets/gif/gif.gif" alt="Animación" class="menu-gif">
         </div>
     </nav>
 
-    <!-- Header -->
+    <!-- Cabecera -->
     <header>
-        <h1>BIENVENIDO</h1>
-        <p class="subtitle">Descubre un espacio diseñado para ti</p>
+        <div class="header-content">
+            <h1>Concientización sobre Sexualidad y Respeto en el Aula</h1>
+            <p class="subtitle">Transformando nuestro ambiente escolar a través del diálogo y la educación</p>
+        </div>
     </header>
 
-    <!-- 6 Cuadrados interactivos -->
-    <div class="grid-container">
-        <a href="mediaion.html" class="grid-item">
-            <h3>Mediación</h3>
-        </a>
-        <a href="mediaion.html" class="grid-item">
-            <h3>Talleres</h3>
-        </a>
-        <a href="mediaion.html" class="grid-item">
-            <h3>Recursos</h3>
-        </a>
-        <a href="mediaion.html" class="grid-item">
-            <h3>Proyectos</h3>
-        </a>
-    </div>
+    <!-- Contenido principal -->
+    <main>
+        <!-- 1. PROBLEMA IDENTIFICADO -->
+        <section id="problema">
+            <h2>Problema Identificado</h2>
+            
+            <div class="highlight-box">
+                <p>Algunos estudiantes de cuarto año han identificado la presencia de dibujos de órganos sexuales en las carpetas del aula, lo que ha causado incomodidad en varios compañeros.</p>
+            </div>
+            
+            <h3>Diálogo del Equipo</h3>
+            <div class="quote">
+                <p><strong>Chaucas:</strong> "Bien, compañeros, como saben, algunos estudiantes han notado dibujos de órganos sexuales en las carpetas del aula. Esto ha generado incomodidad en varios compañeros. Es importante analizar la situación y como podemos aportar en su solución."</p>
+            </div>
+            <div class="quote">
+                <p><strong>Felipe:</strong> "Sí, no tenemos mucho tiempo, pero podemos enfocarnos en soluciones concretas."</p>
+            </div>
+            <div class="quote">
+                <p><strong>Arce Edwin:</strong> "Exacto. La aula debe ser un espacio de respeto y confianza. Si algunos alumnos se sienten incómodos, es necesario buscar formas de solucionarlo."</p>
+            </div>
+            <div class="quote">
+                <p><strong>Chapoñan:</strong> "Para actuar rápido, podríamos crear una página web con información sobre la sexualidad responsable y la convivencia en el aula."</p>
+            </div>
+            <div class="quote">
+                <p><strong>Guevara:</strong> "Eso suena bien. La página podría incluir una encuesta online para que los estudiantes expresen cómo se sienten respecto a este problema."</p>
+            </div>
+            <div class="quote">
+                <p><strong>Arce Edwin:</strong> "Me gusta la idea. No se trata solo de señalar el problema, sino de buscar soluciones que hagan sentir a todos más cómodos."</p>
+            </div>
+            <div class="quote">
+                <p><strong>Chapoñan:</strong> "Y podríamos compartir la página con los docentes para que apoyen la iniciativa y nos ayuden a difundirla."</p>
+            </div>
+            <div class="quote">
+                <p><strong>Guevara:</strong> "También podríamos crear carteles o murales donde podamos poner cosas relacionadas a la buena convivencia escolar y respeto a los espacios públicos."</p>
+            </div>
+            <div class="quote">
+                <p><strong>Chaucas:</strong> "Perfecto, entonces nos dividimos las tareas. Uno se encarga de diseñar la página web, otro de la encuesta, otros de recolectar información y todos nos encargamos del mural."</p>
+            </div>
+            <div class="quote">
+                <p><strong>Felipe:</strong> "Hecho. Vamos a trabajar rápido para solucionar este problema lo antes posible."</p>
+            </div>
+            
+            <h3>Impacto en la Comunidad</h3>
+            <p>Esta situación evidencia la falta de conocimiento y sensibilización sobre la sexualidad, lo que puede dar lugar a actitudes inapropiadas y falta de respeto entre los estudiantes.</p>
+            
+            <h3>Justificación</h3>
+            <p>Este proyecto es muy importante porque busca mejorar el ambiente estudiantil y promover el respeto entre los estudiantes. Cuando aparecen dibujos inapropiados, generalmente esto muestra que todavía falta entender mejor sobre la sexualidad. Esto puede hacer que algunas personas se sientan incómodas y que el ambiente en la escuela no sea tan bueno. Por eso, a través diferentes actividades, queremos que todos entiendan lo importante que es aprender sobre sexualidad de manera responsable y sin prejuicios. Con este proyecto ayudaremos a crear una comunidad estudiantil más inclusiva, segura y respetuosa, donde cada uno pueda expresarse sin miedo y aprender en un ambiente saludable.</p>
+        </section>
 
-    <!-- Reflexión final -->
-    <div class="reflexion">
-        <h2>Nuestra Visión</h2>
-        <div class="quote">
-            "Creemos en la armonía social a través del respeto mutuo y los espacios compartidos"
-        </div>
-        <p>Únete a nuestra comunidad y sé parte del cambio.</p>
-    </div>
+        <!-- 2. INVESTIGACIÓN Y MARCO TEÓRICO -->
+        <section id="investigacion">
+            <h2>Investigación y Fundamentos</h2>
+            
+            <h3>Datos Relevantes</h3>
+            <p>En el estudio del ambiente escolar y la problemática relacionada con la expresividad de la sexualidad en la adolescencia, diversas investigaciones han abordado el tema desde múltiples perspectivas. Un informe de la UNESCO destaca que una educación sexual integral fortalece valores como el respeto y la inclusión, ayudando a reducir la violencia escolar y los prejuicios en el aula (UNESCO, 2018).</p>
+            
+            <p>En América Latina, investigaciones han señalado que la falta de educación sobre sexualidad genera actitudes inapropiadas en los adolescentes, afectando su autoestima y relaciones interpersonales (SciELO, 2020).</p>
+            
+            <p>El problema se produce, en gran medida, debido a la carencia de información y a la ausencia de espacios de diálogo que permitan esclarecer y normar la expresión de la sexualidad, lo que afecta directamente a los estudiantes al generar ambientes de inseguridad, ansiedad, baja autoestima y exclusión.</p>
+            
+            <p>Se ha observado que esta situación viene desarrollándose desde hace varios años, siendo evidenciada en la investigación que analiza la violencia escolar en Perú y su impacto en los estudiantes, "El círculo de la violencia escolar en el Perú: hogares, escuela y desempeño educativo", realizada por Franco Calle, Paulo Matos y Reegan Orozco de la Pontificia Universidad Católica del Perú (PUCP). Este estudio, basado en la Encuesta Nacional sobre Relaciones Sociales (ENARES) 2015, encontró que 40% de los estudiantes peruanos han sufrido agresiones físicas en su entorno escolar cuando se documentaron diversas incidencias de violencia y comportamientos disruptivos.</p>
+            
+            <p>Asimismo, se están vulnerando derechos fundamentales de los adolescentes como el derecho a una educación segura, el derecho a la integridad física y emocional, y el derecho a un desarrollo pleno y libre de violencia, lo que hace imperativo implementar intervenciones educativas que restauren estos valores y garanticen un entorno respetuoso e inclusivo.</p>
+            
+            <h3>Bases Teóricas</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="card-header">Teoría del Desarrollo Psicosocial</div>
+                    <div class="card-body">
+                        <p>También contamos con diferentes teorías del porque el comportamiento de estos alumnos. Entre ellas, la "teoría del desarrollo psicosocial" de Erik Erikson, donde nos dice que hay una etapa en el desarrollo donde exploramos nuestra identidad pero también se busca pertenecer a un grupo y la aceptación, entonces esto puede influir en su comportamiento, ocasionando que estos por querer ser aceptados acepten cualquier cosa o imiten lo que el grupo haga.</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="card-header">Teoría de la Inteligencia Emocional</div>
+                    <div class="card-body">
+                        <p>También la "teoría de la inteligencia emocional" de Goleman, nos dice que el no saber reconocer y expresar nuestras emociones de manera adecuada puede llevarnos a comunicarnos de formas no adecuadas, así que estos alumnos posiblemente aun no tengan estas habilidades y les cueste reconocer lo que están haciendo y como esto puede afectar a los demás.</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="card-header">Teoría del Aprendizaje Social</div>
+                    <div class="card-body">
+                        <p>Por último la "teoría del Aprendizaje social" de Albert Bandura, donde los adolescentes actúan dependiendo de lo que observan, e incluso el normalizar ciertos actos en grupo influye en como nos expresamos con respecto a nuestra sexualidad, por lo tanto, es probable que alguien que no sepa mucho de tema solo imite lo que hacen los de su alrededor sin tomar en cuenta lo que ocasionaría en los demás.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-logo">
-            <i class="fas fa-heart"></i> Harmony Project
-        </div>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2023 Harmony Project. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+        <!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concientización sobre Sexualidad y Respeto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* [Todos los estilos anteriores se mantienen igual] */
+        /* Solo agregaré los nuevos estilos para las imágenes */
+
+        /* Estilos para imágenes ampliables */
+        .zoomable-image {
+            cursor: pointer;
+            transition: transform 0.3s;
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+            border: 2px solid rgba(180, 125, 255, 0.3);
+        }
+
+        .zoomable-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(180, 125, 255, 0.2);
+        }
+
+        /* Modal para imagen ampliada */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 800px;
+            animation: zoom 0.3s;
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0.5)}
+            to {transform: scale(1)}
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #b47dff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #fff;
+        }
+
+        /* Estilos para las imágenes en las tarjetas */
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--color-border);
+        }
+    </style>
+</head>
+<body>
+    <!-- [Todo el contenido anterior se mantiene igual hasta la sección de Soluciones] -->
+
+        <!-- 3. SOLUCIONES PROPUESTAS -->
+        <section id="soluciones">
+            <h2>Nuestras Soluciones</h2>
+            
+            <h3>Título del proyecto:</h3>
+            <p>"Concientización sobre la sexualidad y el respeto en el aula"</p>
+            
+            <h3>Integrantes:</h3>
+            <p>Felipe, Chapoñan, Arce Edwin, Guevara y Chaucas.</p>
+            
+            <h3>Descripción del problema:</h3>
+            <p>Algunos estudiantes de cuarto año han identificado la presencia de dibujos de órganos sexuales en las carpetas del aula, lo que ha causado incomodidad en varios compañeros. Esta situación evidencia la falta de conocimiento y sensibilización sobre la sexualidad, lo que puede dar lugar a actitudes inapropiadas y falta de respeto entre los estudiantes.</p>
+            
+            <h3>Objetivos del proyecto:</h3>
+            <ol>
+                <li>Crear una página web, donde los estudiantes puedan expresar sus inquietudes y aprender sobre sexualidad y convivencia escolar.</li>
+                <li>Realizar campañas de concientización, a través de murales y carteles en la institución, promoviendo el respeto en espacios públicos.</li>
+                <li>Limpiar las mesas del aula para eliminar dibujos inadecuados y garantizar un ambiente ordenado y respetuoso que favorezca la convivencia entre los estudiantes.</li>
+            </ol>
+
+            <!-- Imagen de tabla ampliable -->
+            <div class="highlight-box">
+                <h3>Plan de Acción</h3>
+                <img src="assets/tab/tabla.png" alt="Tabla de planificación" class="zoomable-image" id="tablaImg">
+            </div>
+            
+            <h3>Acciones Concretas</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="card-header">Página Web Educativa</div>
+                    <img src="imgne/xd/web.png" alt="Página web educativa" class="card-image zoomable-image">
+                    <div class="card-body">
+                        <p>Espacio digital con información confiable sobre sexualidad responsable y convivencia escolar.</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="card-header">Murales Educativos</div>
+                    <img src="imgne/xd/mural.png" alt="Mural educativo" class="card-image zoomable-image">
+                    <div class="card-body">
+                        <p>Carteles y murales promoviendo el respeto en espacios públicos de la institución.</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="card-header">Limpieza de Espacios</div>
+                    <img src="imgne/xd/limpieza.png" alt="Limpieza de espacios" class="card-image zoomable-image">
+                    <div class="card-body">
+                        <p>Eliminación de dibujos inadecuados en mesas y carpetas del aula.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- [El resto del contenido se mantiene igual] -->
+
+    <!-- Modal para imágenes ampliadas -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
 
     <script>
-        // Pantalla de carga (corregido)
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                const loader = document.getElementById('loader');
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    document.body.style.overflow = 'auto'; // Restaurar scroll
-                }, 800);
-            }, 3000); // 3 segundos
-        });
+        // [Script anterior del menú hamburguesa se mantiene igual]
 
-        // Menú hamburguesa mejorado
+        // Script para el zoom de imágenes
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById("modalImage");
+        const closeBtn = document.getElementsByClassName("close")[0];
+        
+        // Obtener todas las imágenes zoomables
+        const zoomableImages = document.querySelectorAll('.zoomable-image');
+        
+        // Añadir evento click a cada imagen
+        zoomableImages.forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                modalImg.alt = this.alt;
+            });
+        });
+        
+        // Cerrar modal al hacer click en la X
+        closeBtn.addEventListener('click', function() { 
+            modal.style.display = "none";
+        });
+        
+        // Cerrar modal al hacer click fuera de la imagen
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+        
+        // Cerrar modal con tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                modal.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>
+
+    <script>
+        // Menú hamburguesa
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
 
@@ -454,7 +729,6 @@
             menuToggle.classList.toggle('active');
             navLinks.classList.toggle('active');
             
-            // Bloquear scroll cuando el menú está abierto
             if (navLinks.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
             } else {
@@ -462,12 +736,14 @@
             }
         });
 
-        // Cerrar menú al hacer clic en un enlace
+        // Cerrar menú al hacer clic en un enlace (en móviles)
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                if (window.innerWidth <= 768) {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
             });
         });
     </script>
