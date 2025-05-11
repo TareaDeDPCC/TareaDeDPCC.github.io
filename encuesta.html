@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta - Concientización sobre sexualidad y respeto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --color-primary: #4a89dc;
+            --color-secondary: #967adc;
+            --color-accent: #48cfad;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        /* Menú hamburguesa */
+        nav {
+            background-color: var(--color-primary);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            margin-bottom: 3rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Estilos para la encuesta */
+        .survey-intro {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .survey-options {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .survey-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-yes {
+            background-color: var(--color-accent);
+            color: white;
+        }
+
+        .btn-no {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .survey-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .survey-form {
+            display: none;
+        }
+
+        .question {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question h3 {
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+        }
+
+        .option input {
+            margin-right: 0.8rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: opacity 0.3s;
+        }
+
+        .social-links a:hover {
+            opacity: 0.8;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background-color: var(--color-primary);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transition: left 0.3s;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .survey-options {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menú hamburguesa -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Sexualidad y Respeto</a>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Inicio</a>
+                <a href="#encuesta">Encuesta</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1>Encuesta sobre sexualidad y respeto</h1>
+            <p class="subtitle">Tu opinión nos ayuda a crear un mejor ambiente escolar</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="encuesta">
+            <div class="survey-intro">
+                <h2>¿Quieres ayudarnos en nuestro trabajo?</h2>
+                <p>Apóyanos respondiendo esta encuesta anónima sobre sexualidad y respeto en el aula.</p>
+                
+                <div class="survey-options">
+                    <button class="survey-btn btn-yes" id="btnYes">Sí, quiero participar</button>
+                    <button class="survey-btn btn-no" id="btnNo">No, en este momento</button>
+                </div>
+            </div>
+
+            <div class="survey-form" id="surveyForm">
+                <h2>Encuesta sobre sexualidad y respeto en el aula</h2>
+                <p>Por favor, responde las siguientes preguntas con sinceridad. Todas las respuestas son anónimas.</p>
+                
+                <form id="encuestaForm">
+                    <!-- Pregunta 1 -->
+                    <div class="question">
+                        <h3>1. ¿Has notado dibujos o mensajes inapropiados sobre sexualidad en las carpetas o paredes del aula?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p1" value="Siempre"> Siempre
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p1" value="Frecuentemente"> Frecuentemente
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p1" value="Ocasionalmente"> Ocasionalmente
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p1" value="Rara vez"> Rara vez
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p1" value="Nunca"> Nunca
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 2 -->
+                    <div class="question">
+                        <h3>2. ¿Cómo te hacen sentir estos dibujos o mensajes?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p2" value="Muy incómodo/a"> Muy incómodo/a
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p2" value="Algo incómodo/a"> Algo incómodo/a
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p2" value="Indiferente"> Indiferente
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p2" value="No me molesta"> No me molesta
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 3 -->
+                    <div class="question">
+                        <h3>3. ¿Crees que estos dibujos/mensajes afectan el ambiente en el aula?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p3" value="Mucho"> Mucho
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p3" value="Bastante"> Bastante
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p3" value="Poco"> Poco
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p3" value="Nada"> Nada
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 4 -->
+                    <div class="question">
+                        <h3>4. ¿Has hablado con algún docente o autoridad sobre este tema?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p4" value="Sí, varias veces"> Sí, varias veces
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p4" value="Sí, una vez"> Sí, una vez
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p4" value="No, pero me gustaría"> No, pero me gustaría
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p4" value="No, no me parece necesario"> No, no me parece necesario
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 5 -->
+                    <div class="question">
+                        <h3>5. ¿Crees que en la escuela se brinda suficiente información sobre sexualidad responsable?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p5" value="Sí, es suficiente"> Sí, es suficiente
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p5" value="Sí, pero podría mejorar"> Sí, pero podría mejorar
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p5" value="No, es muy poca"> No, es muy poca
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p5" value="No, no se brinda nada"> No, no se brinda nada
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 6 -->
+                    <div class="question">
+                        <h3>6. ¿Qué temas sobre sexualidad te gustaría que se aborden más en la escuela?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="checkbox" name="p6" value="Anatomía y fisiología"> Anatomía y fisiología
+                            </label>
+                            <label class="option">
+                                <input type="checkbox" name="p6" value="Relaciones saludables"> Relaciones saludables
+                            </label>
+                            <label class="option">
+                                <input type="checkbox" name="p6" value="Prevención de ETS"> Prevención de ETS
+                            </label>
+                            <label class="option">
+                                <input type="checkbox" name="p6" value="Métodos anticonceptivos"> Métodos anticonceptivos
+                            </label>
+                            <label class="option">
+                                <input type="checkbox" name="p6" value="Respeto y consentimiento"> Respeto y consentimiento
+                            </label>
+                            <label class="option">
+                                <input type="checkbox" name="p6" value="Orientación sexual e identidad de género"> Orientación sexual e identidad de género
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 7 -->
+                    <div class="question">
+                        <h3>7. ¿Cómo calificarías el nivel de respeto entre compañeros en tu aula?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p7" value="Muy alto"> Muy alto
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p7" value="Alto"> Alto
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p7" value="Regular"> Regular
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p7" value="Bajo"> Bajo
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p7" value="Muy bajo"> Muy bajo
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 8 -->
+                    <div class="question">
+                        <h3>8. ¿Has presenciado comentarios inapropiados sobre sexualidad entre compañeros?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p8" value="Diariamente"> Diariamente
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p8" value="Varias veces por semana"> Varias veces por semana
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p8" value="Ocasionalmente"> Ocasionalmente
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p8" value="Rara vez"> Rara vez
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p8" value="Nunca"> Nunca
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 9 -->
+                    <div class="question">
+                        <h3>9. ¿Cómo reaccionas ante estos comentarios?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p9" value="Los ignoro"> Los ignoro
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p9" value="Pido que paren"> Pido que paren
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p9" value="Me río aunque no me gusten"> Me río aunque no me gusten
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p9" value="Participo en ellos"> Participo en ellos
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p9" value="Reporto a un docente"> Reporto a un docente
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 10 -->
+                    <div class="question">
+                        <h3>10. ¿Crees que los docentes intervienen adecuadamente cuando ocurren estas situaciones?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p10" value="Siempre"> Siempre
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p10" value="Frecuentemente"> Frecuentemente
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p10" value="A veces"> A veces
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p10" value="Rara vez"> Rara vez
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p10" value="Nunca"> Nunca
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 11 -->
+                    <div class="question">
+                        <h3>11. ¿Has recibido educación sobre consentimiento en relaciones?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p11" value="Sí, ampliamente"> Sí, ampliamente
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p11" value="Sí, algo"> Sí, algo
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p11" value="Muy poco"> Muy poco
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p11" value="Nada"> Nada
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 12 -->
+                    <div class="question">
+                        <h3>12. ¿Qué tan cómodo/a te sientes hablando sobre sexualidad con tus compañeros?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p12" value="Muy cómodo/a"> Muy cómodo/a
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p12" value="Cómodo/a"> Cómodo/a
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p12" value="Poco cómodo/a"> Poco cómodo/a
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p12" value="Nada cómodo/a"> Nada cómodo/a
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 13 -->
+                    <div class="question">
+                        <h3>13. ¿Qué tan cómodo/a te sientes hablando sobre sexualidad con tus docentes?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p13" value="Muy cómodo/a"> Muy cómodo/a
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p13" value="Cómodo/a"> Cómodo/a
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p13" value="Poco cómodo/a"> Poco cómodo/a
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p13" value="Nada cómodo/a"> Nada cómodo/a
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 14 -->
+                    <div class="question">
+                        <h3>14. ¿Crees que existe burla o discriminación hacia estudiantes LGBTQ+ en tu escuela?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p14" value="Sí, mucha"> Sí, mucha
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p14" value="Sí, algo"> Sí, algo
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p14" value="Poca"> Poca
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p14" value="Nada"> Nada
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p14" value="No sé"> No sé
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 15 -->
+                    <div class="question">
+                        <h3>15. ¿Qué tipo de actividades crees que ayudarían a mejorar el respeto en el aula?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="checkbox" name="p15" value="Talleres sobre sexualidad"> Talleres sobre sexualidad
+                            </label>
+                            <label class="option">
+                                <input type="checkbox" name="p15" value="Charlas con especialistas"> Charlas con especialistas
+                            </label>
+                            <label class="option">
+                                <input type="checkbox" name="p15" value="Actividades de convivencia"> Actividades de convivencia
+                            </label>
+                            <label class="option">
+                                <input type="checkbox" name="p15" value="Campañas de sensibilización"> Campañas de sensibilización
+                            </label>
+                            <label class="option">
+                                <input type="checkbox" name="p15" value="Espacios de diálogo entre estudiantes"> Espacios de diálogo entre estudiantes
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 16 -->
+                    <div class="question">
+                        <h3>16. ¿Has participado en alguna actividad escolar sobre educación sexual?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p16" value="Sí, varias"> Sí, varias
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p16" value="Sí, una"> Sí, una
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p16" value="No, pero me gustaría"> No, pero me gustaría
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p16" value="No, no me interesa"> No, no me interesa
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 17 -->
+                    <div class="question">
+                        <h3>17. ¿Crees que la educación sexual debería ser parte obligatoria del currículo escolar?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p17" value="Sí, totalmente"> Sí, totalmente
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p17" value="Sí, pero con opción a no participar"> Sí, pero con opción a no participar
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p17" value="No, debería ser optativa"> No, debería ser optativa
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p17" value="No debería enseñarse"> No debería enseñarse
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 18 -->
+                    <div class="question">
+                        <h3>18. ¿Qué fuente de información sobre sexualidad utilizas principalmente?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p18" value="Escuela"> Escuela
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p18" value="Familia"> Familia
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p18" value="Amigos/as"> Amigos/as
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p18" value="Internet"> Internet
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p18" value="Libros/revistas"> Libros/revistas
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 19 -->
+                    <div class="question">
+                        <h3>19. ¿Crees que la información que recibes sobre sexualidad es adecuada y confiable?</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="p19" value="Sí, siempre"> Sí, siempre
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p19" value="Sí, en general"> Sí, en general
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p19" value="A veces"> A veces
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p19" value="Rara vez"> Rara vez
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="p19" value="Nunca"> Nunca
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 20 -->
+                    <div class="question">
+                        <h3>20. ¿Qué sugerencias darías para mejorar la educación sexual en tu escuela?</h3>
+                        <div class="options">
+                            <textarea name="p20" rows="4" style="width: 100%; padding: 0.5rem;"></textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="survey-btn btn-yes" style="margin-top: 2rem;">Enviar encuesta</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacto">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Redes sociales</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>proyecto.respeto@escuela.edu</p>
+                <p>Teléfono: (01) 123-4567</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Términos y condiciones</h3>
+                <p>Esta encuesta es anónima y los datos se usarán únicamente con fines estadísticos y para mejorar el ambiente escolar.</p>
+                <p>© 2023 Todos los derechos reservados</p>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>Proyecto "Concientización sobre la sexualidad y el respeto en el aula"</p>
+            <p>Institución Educativa N7228 "Peruano Canadiense"</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menú hamburguesa
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Encuesta interactiva
+        const btnYes = document.getElementById('btnYes');
+        const btnNo = document.getElementById('btnNo');
+        const surveyForm = document.getElementById('surveyForm');
+
+        btnYes.addEventListener('click', () => {
+            surveyForm.style.display = 'block';
+            btnYes.style.display = 'none';
+            btnNo.style.display = 'none';
+            document.querySelector('.survey-intro h2').textContent = '¡Gracias por tu ayuda!';
+            document.querySelector('.survey-intro p').textContent = 'Por favor responde las siguientes preguntas con sinceridad.';
+        });
+
+        btnNo.addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+
+        // Envío del formulario
+        const encuestaForm = document.getElementById('encuestaForm');
+        encuestaForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('¡Gracias por completar la encuesta! Tus respuestas nos ayudarán a mejorar el ambiente escolar.');
+            encuestaForm.reset();
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
