@@ -10,7 +10,6 @@
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       background-color: #000;
       color: #fff;
@@ -24,7 +23,6 @@
       padding: 20px;
       position: relative;
     }
-
     .titulo {
       position: absolute;
       top: 20px;
@@ -33,7 +31,6 @@
       color: #00ffff;
       font-weight: bold;
     }
-
     .mensaje {
       font-size: 3em;
       font-weight: bold;
@@ -66,7 +63,6 @@
       max-width: 600px;
       margin-bottom: 10px;
     }
-
     .contador {
       font-size: 1.5em;
       color: #00ffff;
@@ -76,20 +72,17 @@
       margin-bottom: 20px;
       white-space: nowrap;
     }
-
     .perfil {
       width: 120px;
       height: 120px;
       border-radius: 50%;
       border: 3px solid #fff;
     }
-
     .submensaje {
       margin-top: 20px;
       font-size: 1.2em;
       color: #aaa;
     }
-
     @keyframes bordeBrillante {
       0%,
       100% {
@@ -99,7 +92,6 @@
         border-image: linear-gradient(45deg, #ffcc00, #00ffcc, #3333ff, #ff00cc) 1;
       }
     }
-
     @keyframes textoRGB {
       0% {
         background-position: 0% 50%;
@@ -108,7 +100,6 @@
         background-position: 300% 50%;
       }
     }
-
     @media (max-width: 768px) {
       .mensaje {
         font-size: 2em;
@@ -133,28 +124,22 @@
 </head>
 <body>
   <div class="titulo">DPCCrea</div>
-
   <div class="mensaje">
     Página en mantenimiento<br />
     Pronto volverá a funcionar
   </div>
-
   <div class="contador" id="contador"></div>
-
   <img src="assets/creador.png" alt="Foto de perfil" class="perfil" />
-
   <div class="submensaje">Mensaje de l_adriano — Vuelva pronto</div>
-
   <script>
-    // Fecha objetivo: 5 días desde ahora
-    const cuentaRegresiva = new Date();
-    cuentaRegresiva.setDate(cuentaRegresiva.getDate() + 5);
+    // Fecha fija de fin (cambia esta fecha a la que tú quieras)
+    const fechaFin = new Date('2025-05-27T15:00:00'); // formato: AAAA-MM-DDTHH:MM:SS
 
     const contadorElemento = document.getElementById('contador');
 
     function actualizarContador() {
       const ahora = new Date().getTime();
-      const distancia = cuentaRegresiva.getTime() - ahora;
+      const distancia = fechaFin.getTime() - ahora;
 
       if (distancia < 0) {
         contadorElemento.innerHTML = "¡Ya estamos de vuelta! 🎉";
