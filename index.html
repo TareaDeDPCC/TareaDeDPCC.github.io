@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DPCCrea - Mantenimiento</title>
   <style>
     * {
@@ -22,6 +22,7 @@
       justify-content: center;
       text-align: center;
       padding: 20px;
+      position: relative;
     }
 
     .titulo {
@@ -36,7 +37,18 @@
     .mensaje {
       font-size: 3em;
       font-weight: bold;
-      background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+      background: linear-gradient(
+        45deg,
+        #ff0000,
+        #ff7300,
+        #fffb00,
+        #48ff00,
+        #00ffd5,
+        #002bff,
+        #7a00ff,
+        #ff00c8,
+        #ff0000
+      );
       background-size: 300%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -46,13 +58,29 @@
       border-image: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc, #ffcc00) 1;
       animation: bordeBrillante 3s linear infinite, textoRGB 5s linear infinite;
       border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 320px;
+      max-width: 600px;
+      margin-bottom: 10px;
+    }
+
+    .contador {
+      font-size: 1.5em;
+      color: #00ffff;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #00ffff;
+      margin-bottom: 20px;
+      white-space: nowrap;
     }
 
     .perfil {
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      margin-top: 20px;
       border: 3px solid #fff;
     }
 
@@ -63,7 +91,8 @@
     }
 
     @keyframes bordeBrillante {
-      0%, 100% {
+      0%,
+      100% {
         border-image: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc, #ffcc00) 1;
       }
       50% {
@@ -84,11 +113,20 @@
       .mensaje {
         font-size: 2em;
         padding: 20px;
+        min-width: 280px;
       }
       .titulo {
         font-size: 1em;
         top: 10px;
         left: 10px;
+      }
+      .contador {
+        font-size: 1.2em;
+        margin-bottom: 15px;
+      }
+      .perfil {
+        width: 90px;
+        height: 90px;
       }
     }
   </style>
@@ -97,12 +135,55 @@
   <div class="titulo">DPCCrea</div>
 
   <div class="mensaje">
-    Página en mantenimiento<br>
+    Página en mantenimiento<br />
     Pronto volverá a funcionar
   </div>
 
-  <img src="assets/creador.png" alt="Foto de perfil" class="perfil">
+  <div class="contador" id="contador"></div>
 
-  <div class="submensaje">Mensaje de L_adriano — Vuelva pronto</div>
+  <img src="assets/creador.png" alt="Foto de perfil" class="perfil" />
+
+  <div class="submensaje">Mensaje de l_adriano — Vuelva pronto</div>
+
+  <script>
+    // Fecha objetivo: 5 días desde ahora
+    const cuentaRegresiva = new Date();
+    cuentaRegresiva.setDate(cuentaRegresiva.getDate() + 5);
+
+    const contadorElemento = document.getElementById('contador');
+
+    function actualizarContador() {
+      const ahora = new Date().getTime();
+      const distancia = cuentaRegresiva.getTime() - ahora;
+
+      if (distancia < 0) {
+        contadorElemento.innerHTML = "¡Ya estamos de vuelta! 🎉";
+        clearInterval(intervalo);
+        return;
+      }
+
+      const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor(
+        (distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutos = Math.floor(
+        (distancia % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+      contadorElemento.innerHTML =
+        dias +
+        "d " +
+        horas +
+        "h " +
+        minutos +
+        "m " +
+        segundos +
+        "s ";
+    }
+
+    const intervalo = setInterval(actualizarContador, 1000);
+    actualizarContador();
+  </script>
 </body>
 </html>
